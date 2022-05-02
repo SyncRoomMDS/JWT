@@ -5,8 +5,6 @@ const db = require('_helpers/db');
 
 module.exports = {
     authenticate,
-    getAll,
-    getById,
     create,
     update,
     delete: _delete
@@ -21,14 +19,6 @@ async function authenticate({ username, password }) {
     // Authentification réussie
     const token = jwt.sign({ sub: user.id }, config.secret, { expiresIn: '7d' });
     return { ...omitHash(user.get()), token };
-}
-
-async function getAll() {
-    return await db.User.findAll();
-}
-
-async function getById(id) {
-    return await getUser(id);
 }
 
 async function create(params) {
